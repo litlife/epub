@@ -6,19 +6,19 @@ class AddExtensionIfNotExist
 {
     private Epub $epub;
 
-	function __construct(&$epub)
-	{
-		$this->epub = &$epub;
-	}
+    function __construct(&$epub)
+    {
+        $this->epub = &$epub;
+    }
 
-	public function addExtension()
-	{
-		foreach ($this->epub->getImages() as $image) {
+    public function addExtension()
+    {
+        foreach ($this->epub->getImages() as $image) {
 
-			if (empty($image->getExtension())) {
+            if (empty($image->getExtension())) {
 
-				$image->rename($image->getFileName() . '.' . mb_strtolower($image->guessExtension()));
-			}
-		}
-	}
+                $image->rename($image->getFileName() . '.' . mb_strtolower($image->guessExtension()));
+            }
+        }
+    }
 }

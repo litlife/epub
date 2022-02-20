@@ -12,29 +12,29 @@ class CssTest extends TestCase
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      */
     public function test()
-	{
-		$epub = new Epub();
-		$epub->setFile(__DIR__ . '/books/test.epub');
+    {
+        $epub = new Epub();
+        $epub->setFile(__DIR__ . '/books/test.epub');
 
-		$css = new Css($epub);
-		$css->setPath('OEBPS/Styles/main.css');
-		$css->setContent('.content {}');
+        $css = new Css($epub);
+        $css->setPath('OEBPS/Styles/main.css');
+        $css->setContent('.content {}');
 
-		$this->assertEquals($epub->getAllFilesList(), $css->getEpub()->getAllFilesList());
+        $this->assertEquals($epub->getAllFilesList(), $css->getEpub()->getAllFilesList());
 
-		$this->assertTrue($css->isExists());
+        $this->assertTrue($css->isExists());
 
-		$epub->opf()->appendToManifest('main.css', 'Styles/main.css', 'text/css');
+        $epub->opf()->appendToManifest('main.css', 'Styles/main.css', 'text/css');
 
-		$string = $epub->outputAsString();
+        $string = $epub->outputAsString();
 
-		$epub = new Epub;
-		$epub->setFile($string);
-		$css = $epub->getFileByPath('OEBPS/Styles/main.css');
+        $epub = new Epub;
+        $epub->setFile($string);
+        $css = $epub->getFileByPath('OEBPS/Styles/main.css');
 
-		$this->assertTrue($css->isFoundInZip());
+        $this->assertTrue($css->isFoundInZip());
 
-		$this->assertInstanceOf(Css::class, $css);
-		$this->assertEquals('.content {}', $css->getContent());
-	}
+        $this->assertInstanceOf(Css::class, $css);
+        $this->assertEquals('.content {}', $css->getContent());
+    }
 }

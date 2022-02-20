@@ -13,171 +13,171 @@ class EpubDescriptionTest extends TestCase
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      */
     public function testCover()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertInstanceOf(Image::class, $epub->getCover());
-		$this->assertEquals('OEBPS/Images/test.png', $epub->getCover()->getPath());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertInstanceOf(Image::class, $epub->getCover());
+        $this->assertEquals('OEBPS/Images/test.png', $epub->getCover()->getPath());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testTitle()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('[Title here]', $epub->getTitle());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('[Title here]', $epub->getTitle());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testPublisher()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('Publisher', $epub->getPublisher());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('Publisher', $epub->getPublisher());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testPublishCity()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('City', $epub->getPublishCity());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('City', $epub->getPublishCity());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testPublishYear()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('2002', $epub->getPublishYear());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('2002', $epub->getPublishYear());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testLanguage()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('en', $epub->getLanguage());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('en', $epub->getLanguage());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testAnnotation()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('Annotation', $epub->getAnnotation());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('Annotation', $epub->getAnnotation());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testRightsholder()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('rightsholder', $epub->getRightsholder());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('rightsholder', $epub->getRightsholder());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testCreatedDate()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('2001', $epub->getCreatedDate());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('2001', $epub->getCreatedDate());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testISBN()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals('111-1-111-11111-1', $epub->getISBN());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals('111-1-111-11111-1', $epub->getISBN());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testAuthors()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals(['Author First Name', 'Author2 First2 Name2'], $epub->getAuthors());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals(['Author First Name', 'Author2 First2 Name2'], $epub->getAuthors());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testTranslators()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals(['Translator First Name'], $epub->getTranslators());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals(['Translator First Name'], $epub->getTranslators());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testGenres()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
-		$this->assertEquals(['sci_anachem', 'music'], $epub->getGenres());
-	}
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
+        $this->assertEquals(['sci_anachem', 'music'], $epub->getGenres());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testSequences()
-	{
-		$epub = new EpubDescription();
-		$epub->setFile(__DIR__ . '/books/test.epub');
+    {
+        $epub = new EpubDescription();
+        $epub->setFile(__DIR__ . '/books/test.epub');
 
-		$array = [
-			['name' => 'SequenceName', 'number' => '1'],
-			['name' => 'SequenceName2']
-		];
+        $array = [
+            ['name' => 'SequenceName', 'number' => '1'],
+            ['name' => 'SequenceName2']
+        ];
 
-		$this->assertEquals($array, $epub->getSequences());
-	}
+        $this->assertEquals($array, $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testMetaData1()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="uuid_id" xmlns="http://www.idpf.org/2007/opf">
   <metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -199,35 +199,35 @@ class EpubDescriptionTest extends TestCase
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$this->assertEquals('Мертвые души', $epub->getTitle());
-		$this->assertEquals(['Александр Гоголь'], $epub->getAuthors());
-		$this->assertNull($epub->getCover());
-		$this->assertEquals('', $epub->getPublisher());
-		$this->assertEquals('', $epub->getPublishCity());
-		$this->assertEquals(null, $epub->getPublishYear());
-		$this->assertEquals('ru', $epub->getLanguage());
-		$this->assertEquals('', $epub->getAnnotation());
-		$this->assertEquals('', $epub->getRightsholder());
-		$this->assertEquals(null, $epub->getCreatedDate());
-		$this->assertEquals('', $epub->getISBN());
-		$this->assertEquals([], $epub->getTranslators());
-		$this->assertEquals(['sf_fantasy'], $epub->getGenres());
-		$this->assertEquals([], $epub->getSequences());
-	}
+        $this->assertEquals('Мертвые души', $epub->getTitle());
+        $this->assertEquals(['Александр Гоголь'], $epub->getAuthors());
+        $this->assertNull($epub->getCover());
+        $this->assertEquals('', $epub->getPublisher());
+        $this->assertEquals('', $epub->getPublishCity());
+        $this->assertEquals(null, $epub->getPublishYear());
+        $this->assertEquals('ru', $epub->getLanguage());
+        $this->assertEquals('', $epub->getAnnotation());
+        $this->assertEquals('', $epub->getRightsholder());
+        $this->assertEquals(null, $epub->getCreatedDate());
+        $this->assertEquals('', $epub->getISBN());
+        $this->assertEquals([], $epub->getTranslators());
+        $this->assertEquals(['sf_fantasy'], $epub->getGenres());
+        $this->assertEquals([], $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testMetaData2()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="BookId">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/">
@@ -241,40 +241,40 @@ EOT;
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$this->assertEquals('Мертвые души', $epub->getTitle());
-		$this->assertEquals(['Александр Гоголь'], $epub->getAuthors());
-		$this->assertNull($epub->getCover());
-		$this->assertEquals('', $epub->getPublisher());
-		$this->assertEquals('', $epub->getPublishCity());
-		$this->assertEquals(null, $epub->getPublishYear());
-		$this->assertEquals('ru', $epub->getLanguage());
-		$this->assertEquals('', $epub->getAnnotation());
-		$this->assertEquals('', $epub->getRightsholder());
-		$this->assertEquals(null, $epub->getCreatedDate());
-		$this->assertEquals('', $epub->getISBN());
-		$this->assertEquals(['Чуковский Корней Иванович', 'Лев Толстой'], $epub->getTranslators());
-		$this->assertEquals([], $epub->getGenres());
+        $this->assertEquals('Мертвые души', $epub->getTitle());
+        $this->assertEquals(['Александр Гоголь'], $epub->getAuthors());
+        $this->assertNull($epub->getCover());
+        $this->assertEquals('', $epub->getPublisher());
+        $this->assertEquals('', $epub->getPublishCity());
+        $this->assertEquals(null, $epub->getPublishYear());
+        $this->assertEquals('ru', $epub->getLanguage());
+        $this->assertEquals('', $epub->getAnnotation());
+        $this->assertEquals('', $epub->getRightsholder());
+        $this->assertEquals(null, $epub->getCreatedDate());
+        $this->assertEquals('', $epub->getISBN());
+        $this->assertEquals(['Чуковский Корней Иванович', 'Лев Толстой'], $epub->getTranslators());
+        $this->assertEquals([], $epub->getGenres());
 
-		$array = [
-			['name' => 'Библиотека приключений', 'number' => '12']
-		];
+        $array = [
+            ['name' => 'Библиотека приключений', 'number' => '12']
+        ];
 
-		$this->assertEquals($array, $epub->getSequences());
-	}
+        $this->assertEquals($array, $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testMetaData3()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <package xmlns="http://www.idpf.org/2007/opf" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" unique-identifier="PrimaryID" version="3.0" xml:lang="en">
    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <meta content="coverimg" name="cover"/>
@@ -293,35 +293,35 @@ EOT;
    <meta content="2017-10-13" name="epubcheckdate"/><meta content="4.0.1" name="epubcheckversion"/></metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$this->assertEquals('Мертвые души', $epub->getTitle());
-		$this->assertEquals(['Александр Гоголь'], $epub->getAuthors());
-		$this->assertNull($epub->getCover());
-		$this->assertEquals('', $epub->getPublisher());
-		$this->assertEquals('', $epub->getPublishCity());
-		$this->assertEquals(null, $epub->getPublishYear());
-		$this->assertEquals('eng', $epub->getLanguage());
-		$this->assertEquals('', $epub->getAnnotation());
-		$this->assertEquals('', $epub->getRightsholder());
-		$this->assertEquals(null, $epub->getCreatedDate());
-		$this->assertEquals(null, $epub->getISBN());
-		$this->assertEquals([], $epub->getTranslators());
-		$this->assertEquals([], $epub->getGenres());
-		$this->assertEquals([], $epub->getSequences());
-	}
+        $this->assertEquals('Мертвые души', $epub->getTitle());
+        $this->assertEquals(['Александр Гоголь'], $epub->getAuthors());
+        $this->assertNull($epub->getCover());
+        $this->assertEquals('', $epub->getPublisher());
+        $this->assertEquals('', $epub->getPublishCity());
+        $this->assertEquals(null, $epub->getPublishYear());
+        $this->assertEquals('eng', $epub->getLanguage());
+        $this->assertEquals('', $epub->getAnnotation());
+        $this->assertEquals('', $epub->getRightsholder());
+        $this->assertEquals(null, $epub->getCreatedDate());
+        $this->assertEquals(null, $epub->getISBN());
+        $this->assertEquals([], $epub->getTranslators());
+        $this->assertEquals([], $epub->getGenres());
+        $this->assertEquals([], $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testMetaData4()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="FB2BookID" xmlns="http://www.idpf.org/2007/opf">
   <metadata xmlns="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -341,35 +341,35 @@ EOT;
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$this->assertEquals('Мертвые души -0', $epub->getTitle());
-		$this->assertEquals(['Александр Гоголь', 'Aleksandr Gogol'], $epub->getAuthors());
-		$this->assertNull($epub->getCover());
-		$this->assertEquals('', $epub->getPublisher());
-		$this->assertEquals('', $epub->getPublishCity());
-		$this->assertEquals(1788, $epub->getPublishYear());
-		$this->assertEquals('ru', $epub->getLanguage());
-		$this->assertEquals('', $epub->getAnnotation());
-		$this->assertEquals('', $epub->getRightsholder());
-		$this->assertEquals(null, $epub->getCreatedDate());
-		$this->assertEquals(null, $epub->getISBN());
-		$this->assertEquals(['А. Пушкин'], $epub->getTranslators());
-		$this->assertEquals([], $epub->getGenres());
-		$this->assertEquals([], $epub->getSequences());
-	}
+        $this->assertEquals('Мертвые души -0', $epub->getTitle());
+        $this->assertEquals(['Александр Гоголь', 'Aleksandr Gogol'], $epub->getAuthors());
+        $this->assertNull($epub->getCover());
+        $this->assertEquals('', $epub->getPublisher());
+        $this->assertEquals('', $epub->getPublishCity());
+        $this->assertEquals(1788, $epub->getPublishYear());
+        $this->assertEquals('ru', $epub->getLanguage());
+        $this->assertEquals('', $epub->getAnnotation());
+        $this->assertEquals('', $epub->getRightsholder());
+        $this->assertEquals(null, $epub->getCreatedDate());
+        $this->assertEquals(null, $epub->getISBN());
+        $this->assertEquals(['А. Пушкин'], $epub->getTranslators());
+        $this->assertEquals([], $epub->getGenres());
+        $this->assertEquals([], $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testMetaData5()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="bookid" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://www.idpf.org/2007/opf">
   <metadata>
@@ -390,35 +390,35 @@ EOT;
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$this->assertEquals('Поселок', $epub->getTitle());
-		$this->assertEquals(['Кир Булычев'], $epub->getAuthors());
-		$this->assertNull($epub->getCover());
-		$this->assertEquals('“Детская литература” (1933-1963 Детгиз)', $epub->getPublisher());
-		$this->assertEquals('Москва', $epub->getPublishCity());
-		$this->assertEquals(1988, $epub->getPublishYear());
-		$this->assertEquals('ru', $epub->getLanguage());
-		$this->assertEquals('Текст аннотации', $epub->getAnnotation());
-		$this->assertEquals('', $epub->getRightsholder());
-		$this->assertEquals(null, $epub->getCreatedDate());
-		$this->assertEquals(null, $epub->getISBN());
-		$this->assertEquals([], $epub->getTranslators());
-		$this->assertEquals([], $epub->getGenres());
-		$this->assertEquals([], $epub->getSequences());
-	}
+        $this->assertEquals('Поселок', $epub->getTitle());
+        $this->assertEquals(['Кир Булычев'], $epub->getAuthors());
+        $this->assertNull($epub->getCover());
+        $this->assertEquals('“Детская литература” (1933-1963 Детгиз)', $epub->getPublisher());
+        $this->assertEquals('Москва', $epub->getPublishCity());
+        $this->assertEquals(1988, $epub->getPublishYear());
+        $this->assertEquals('ru', $epub->getLanguage());
+        $this->assertEquals('Текст аннотации', $epub->getAnnotation());
+        $this->assertEquals('', $epub->getRightsholder());
+        $this->assertEquals(null, $epub->getCreatedDate());
+        $this->assertEquals(null, $epub->getISBN());
+        $this->assertEquals([], $epub->getTranslators());
+        $this->assertEquals([], $epub->getGenres());
+        $this->assertEquals([], $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipException
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      */
     public function testMetaData6()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="bookid" xmlns:opf="http://www.idpf.org/2007/opf" xmlns="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata>
@@ -434,27 +434,27 @@ EOT;
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$array = [
-			['name' => 'Название серии', 'number' => '5']
-		];
+        $array = [
+            ['name' => 'Название серии', 'number' => '5']
+        ];
 
-		$this->assertEquals($array, $epub->getSequences());
-		$this->assertEquals(['Translator1', 'Translator2'], $epub->getTranslators());
-	}
+        $this->assertEquals($array, $epub->getSequences());
+        $this->assertEquals(['Translator1', 'Translator2'], $epub->getTranslators());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testMetaData7()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="FB2BookID" xmlns="http://www.idpf.org/2007/opf">
   <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -466,27 +466,27 @@ EOT;
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$array = [
-			['name' => 'Библиотека приключений', 'number' => '2'],
-			['name' => 'Библиотека фантастики', 'number' => '3']
-		];
+        $array = [
+            ['name' => 'Библиотека приключений', 'number' => '2'],
+            ['name' => 'Библиотека фантастики', 'number' => '3']
+        ];
 
-		$this->assertEquals($array, $epub->getSequences());
-	}
+        $this->assertEquals($array, $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testMetaData8()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="FB2BookID" xmlns="http://www.idpf.org/2007/opf">
   <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -496,27 +496,27 @@ EOT;
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$array = [
-			['name' => 'Библиотека приключений'],
-			['name' => 'Библиотека фантастики', 'number' => '3']
-		];
+        $array = [
+            ['name' => 'Библиотека приключений'],
+            ['name' => 'Библиотека фантастики', 'number' => '3']
+        ];
 
-		$this->assertEquals($array, $epub->getSequences());
-	}
+        $this->assertEquals($array, $epub->getSequences());
+    }
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     public function testPublishYearParseDate()
-	{
-		$epub = new EpubDescription();
+    {
+        $epub = new EpubDescription();
 
-		$s = <<<EOT
+        $s = <<<EOT
 <?xml version="1.0" encoding="utf-8"?>
 <package version="2.0" unique-identifier="bookid" xmlns:opf="http://www.idpf.org/2007/opf" xmlns="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <metadata>
@@ -524,10 +524,10 @@ EOT;
   </metadata>
 </package>
 EOT;
-		$opf = new Opf($epub);
-		$opf->dom()->loadXML($s);
-		$epub->opf = $opf;
+        $opf = new Opf($epub);
+        $opf->dom()->loadXML($s);
+        $epub->opf = $opf;
 
-		$this->assertEquals(2010, $epub->getPublishYear());
-	}
+        $this->assertEquals(2010, $epub->getPublishYear());
+    }
 }

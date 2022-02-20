@@ -11,399 +11,398 @@ use Exception;
 
 class Section extends File
 {
-	public DOMDocument $dom;
-	public DOMXpath $xpath;
-	protected Epub $epub;
-	protected $linear = null;
-	protected $title_id = null;
+    public DOMDocument $dom;
+    public DOMXpath $xpath;
+    protected Epub $epub;
+    protected $linear = null;
+    protected $title_id = null;
 
     /**
      * @throws \PhpZip\Exception\ZipEntryNotFoundException
      * @throws \PhpZip\Exception\ZipException
      */
     function __construct(Epub $epub, $path = null)
-	{
-		parent::__construct($epub, $path);
-
-		if (!empty($path)) {
-			$html = $epub->zipFile->getEntryContents($path);
-
-			$html = str_replace('&nbsp;', '&#160;', $html);
-
-			$this->dom = new DOMDocument();
-			$this->loadXML($html);
-		} else {
-			// создаем новый документ
-			$imp = new DOMImplementation;
-
-			$dtd = $imp->createDocumentType('html', '-//W3C//DTD XHTML 1.1//EN',
-				'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd');
-
-			$this->dom = $imp->createDocument(null, "html", $dtd);
-			$this->dom->encoding = "utf-8";
-			$this->dom->documentElement->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-
-			$head = $this->dom->createElement('head');
-
-			$meta = $this->dom->createElement('meta');
-			$meta->setAttribute('http-equiv', 'Content-Type');
-			$meta->setAttribute('content', 'text/html; charset=utf-8');
-			$head->appendChild($meta);
-
-			$this->html()->appendChild($head);
-			$this->html()->appendChild($this->dom->createElement('body'));
-		}
-	}
-
-	public function loadXml($html)
-	{
-		$html = trim($html);
-		$html = str_replace('&nbsp;', '&#160;', $html);
-		$this->dom->loadXML($html);
-	}
-
-	public function html(): DOMElement
     {
-		return $this->dom->documentElement;
-	}
+        parent::__construct($epub, $path);
 
-	public function setBodyHtml($html)
-	{
-		$html = str_replace('&nbsp;', '&#160;', $html);
+        if (!empty($path)) {
+            $html = $epub->zipFile->getEntryContents($path);
 
-		if (empty($this->body())) {
-			$body = $this->dom()->createElement('body');
-			$this->dom()->documentElement->appendChild($body);
-		} else {
-			$attributes = $this->body()->attributes;
-			$body = $this->dom()->createElement('body');
-			$this->html()->replaceChild($body, $this->body());
-		}
+            $html = str_replace('&nbsp;', '&#160;', $html);
 
-		if ($html == strip_tags($html))
-			$html = '<p>' . $html . '</p>';
-		/*
-				$dom = new \DOMDocument;
-				try {
-					$dom->loadXML('<body>' . $html . '</body>');
-				} catch (\Exception $exception) {
-					$dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body>');
-				}
+            $this->dom = new DOMDocument();
+            $this->loadXML($html);
+        } else {
+            // создаем новый документ
+            $imp = new DOMImplementation;
 
-				if (is_object(libxml_get_last_error())) {
-					$dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body>');
-				}
-				*/
+            $dtd = $imp->createDocumentType('html', '-//W3C//DTD XHTML 1.1//EN',
+                'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd');
 
-		$nodeList = $this->importXhtml($html);
+            $this->dom = $imp->createDocument(null, "html", $dtd);
+            $this->dom->encoding = "utf-8";
+            $this->dom->documentElement->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
 
-		$this->clearBody();
+            $head = $this->dom->createElement('head');
 
-		while ($nodeList->length) {
-			$this->body()->appendChild($nodeList->item(0));
-		}
-		/*
-				if ($dom->getElementsByTagName('body')->item(0)) {
-					$this->html()->replaceChild($this->dom()->importNode($dom->getElementsByTagName('body')->item(0), true), $body);
-				} else {
-					foreach ($dom->childNodes as $node) {
-						$body->appendChild($this->dom()->importNode($node, true));
-					}
-				}
-				*/
+            $meta = $this->dom->createElement('meta');
+            $meta->setAttribute('http-equiv', 'Content-Type');
+            $meta->setAttribute('content', 'text/html; charset=utf-8');
+            $head->appendChild($meta);
 
-		if (!empty($attributes)) {
-			foreach ($attributes as $attribute) {
-				$this->body()->setAttribute($attribute->nodeName, $attribute->value);
-			}
-		}
-	}
+            $this->html()->appendChild($head);
+            $this->html()->appendChild($this->dom->createElement('body'));
+        }
+    }
 
-	public function body(): DOMElement
+    public function loadXml($html)
     {
-		return $this->dom()->getElementsByTagName('body')->item(0);
-	}
+        $html = trim($html);
+        $html = str_replace('&nbsp;', '&#160;', $html);
+        $this->dom->loadXML($html);
+    }
 
-	public function dom(): DOMDocument
+    public function html(): DOMElement
     {
-		return $this->dom;
-	}
+        return $this->dom->documentElement;
+    }
 
-	public function importXhtml($xhtml): DOMNodeList
-	{
-		$dom = new DOMDocument;
-		try {
-			$dom->loadXML('<body>' . $xhtml . '</body>');
-		} catch (Exception $exception) {
-			$dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $xhtml . '</body>');
-		}
+    public function setBodyHtml($html)
+    {
+        $html = str_replace('&nbsp;', '&#160;', $html);
 
-		if (is_object(libxml_get_last_error())) {
-			$dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $xhtml . '</body>');
-		}
+        if (empty($this->body())) {
+            $body = $this->dom()->createElement('body');
+            $this->dom()->documentElement->appendChild($body);
+        } else {
+            $attributes = $this->body()->attributes;
+            $body = $this->dom()->createElement('body');
+            $this->html()->replaceChild($body, $this->body());
+        }
+
+        if ($html == strip_tags($html))
+            $html = '<p>' . $html . '</p>';
+        /*
+                $dom = new \DOMDocument;
+                try {
+                    $dom->loadXML('<body>' . $html . '</body>');
+                } catch (\Exception $exception) {
+                    $dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body>');
+                }
+
+                if (is_object(libxml_get_last_error())) {
+                    $dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $html . '</body>');
+                }
+                */
+
+        $nodeList = $this->importXhtml($html);
+
+        $this->clearBody();
+
+        while ($nodeList->length) {
+            $this->body()->appendChild($nodeList->item(0));
+        }
+        /*
+                if ($dom->getElementsByTagName('body')->item(0)) {
+                    $this->html()->replaceChild($this->dom()->importNode($dom->getElementsByTagName('body')->item(0), true), $body);
+                } else {
+                    foreach ($dom->childNodes as $node) {
+                        $body->appendChild($this->dom()->importNode($node, true));
+                    }
+                }
+                */
+
+        if (!empty($attributes)) {
+            foreach ($attributes as $attribute) {
+                $this->body()->setAttribute($attribute->nodeName, $attribute->value);
+            }
+        }
+    }
+
+    public function body(): DOMElement
+    {
+        return $this->dom()->getElementsByTagName('body')->item(0);
+    }
+
+    public function dom(): DOMDocument
+    {
+        return $this->dom;
+    }
+
+    public function importXhtml($xhtml): DOMNodeList
+    {
+        $dom = new DOMDocument;
+        try {
+            $dom->loadXML('<body>' . $xhtml . '</body>');
+        } catch (Exception $exception) {
+            $dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $xhtml . '</body>');
+        }
+
+        if (is_object(libxml_get_last_error())) {
+            $dom->loadHTML('<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>' . $xhtml . '</body>');
+        }
 
         return $this->dom()
             ->importNode($dom->getElementsByTagName('body')->item(0), true)
             ->childNodes;
-	}
+    }
 
-	public function clearBody()
-	{
-		$childs = [];
-
-		foreach ($this->body()->childNodes as $node) {
-			$childs[] = $node;
-		}
-
-		if (count($childs)) {
-			foreach ($childs as $node) {
-				$this->body()->removeChild($node);
-			}
-		}
-	}
-
-	public function setPath($path)
-	{
-		$this->path = $path;
-		$this->epub->files[$path] = $this;
-	}
-
-	public function title(string $s = null): DOMElement
-	{
-		$titleNode = $this->dom()->getElementsByTagName('title')->item(0);
-
-		if (isset($s)) {
-			$oldTitleNode = $titleNode;
-
-			$titleNode = $this->dom()->createElement('title');
-			$titleNode->appendChild($this->dom()->createTextNode($s));
-
-			if (empty($oldTitleNode)) {
-
-				$this->head()->appendChild($titleNode);
-			} else {
-				$titleNode = $this->dom()->createElement('title');
-				$titleNode->appendChild($this->dom()->createTextNode($s));
-				$this->head()->replaceChild($titleNode, $oldTitleNode);
-			}
-		}
-
-		return $titleNode;
-	}
-
-	public function head(): DOMElement
+    public function clearBody()
     {
-		$headNode = $this->dom()->getElementsByTagName('head')->item(0);
+        $childs = [];
 
-		if (empty($headNode)) {
-			$headNode = $this->dom()->createElement('head');
+        foreach ($this->body()->childNodes as $node) {
+            $childs[] = $node;
+        }
 
-			$this->dom()->documentElement->appendChild($headNode);
-		}
+        if (count($childs)) {
+            foreach ($childs as $node) {
+                $this->body()->removeChild($node);
+            }
+        }
+    }
 
-		return $headNode;
-	}
-
-	public function getTitle(): string
+    public function setPath($path)
     {
-		if ($this->epub->ncx()) {
-			$title = $this->epub->ncx()->findTitleByFullPath($this->getPath());
+        $this->path = $path;
+        $this->epub->files[$path] = $this;
+    }
 
-			$title = $this->titleHandler($title);
+    public function title(string $s = null): DOMElement
+    {
+        $titleNode = $this->dom()->getElementsByTagName('title')->item(0);
 
-			if ($title != '') {
-				return $title;
-			}
-		}
+        if (isset($s)) {
+            $oldTitleNode = $titleNode;
 
-		// пытаемся извлечь заголовок из тега h1 в body
-		$titleNode = $this->xpath()->query("//*[local-name()='body']//*[local-name()='h1'][@class='title']");
+            $titleNode = $this->dom()->createElement('title');
+            $titleNode->appendChild($this->dom()->createTextNode($s));
 
-		if ($titleNode->length) {
-			$titleNode = $titleNode->item(0);
-			$title = $this->titleHandler($titleNode->nodeValue);
+            if (empty($oldTitleNode)) {
 
-			if ($title != '') {
+                $this->head()->appendChild($titleNode);
+            } else {
+                $titleNode = $this->dom()->createElement('title');
+                $titleNode->appendChild($this->dom()->createTextNode($s));
+                $this->head()->replaceChild($titleNode, $oldTitleNode);
+            }
+        }
 
-				if ($id = $titleNode->getAttribute('id'))
-					$this->setTitleId($id);
+        return $titleNode;
+    }
 
-				return $title;
-			}
-		}
+    public function head(): DOMElement
+    {
+        $headNode = $this->dom()->getElementsByTagName('head')->item(0);
 
-		// пытаемся извлечь заголовок из первого найденного класса у которого класс начинается на title
-		$classElements = $this->xpath()->query("//*[local-name()='body']//*[@class]");
+        if (empty($headNode)) {
+            $headNode = $this->dom()->createElement('head');
 
-		foreach ($classElements as $classElement) {
+            $this->dom()->documentElement->appendChild($headNode);
+        }
 
-			if (preg_match("/^title(\_\-[0-9])*$/iu", $classElement->getAttribute("class"))) {
-				$title = strip_tags($this->dom()->saveHTML($classElement));
-				$title = $this->titleHandler($title);
+        return $headNode;
+    }
 
-				if ($title != '') {
+    public function getTitle(): string
+    {
+        if ($this->epub->ncx()) {
+            $title = $this->epub->ncx()->findTitleByFullPath($this->getPath());
 
-					if ($id = $classElement->getAttribute('id'))
-						$this->setTitleId($id);
+            $title = $this->titleHandler($title);
 
-					return $title;
-				}
-			}
-		}
+            if ($title != '') {
+                return $title;
+            }
+        }
 
-		// пытаемся извлечь заголовок из тега h1 в body
-		$h1Elements = $this->xpath()->query("//*[local-name()='body']//*[local-name()='h1']");
+        // пытаемся извлечь заголовок из тега h1 в body
+        $titleNode = $this->xpath()->query("//*[local-name()='body']//*[local-name()='h1'][@class='title']");
 
-		if ($h1Elements->length) {
-			$h1Element = $h1Elements->item(0);
-			$title = $this->titleHandler($h1Element->nodeValue);
+        if ($titleNode->length) {
+            $titleNode = $titleNode->item(0);
+            $title = $this->titleHandler($titleNode->nodeValue);
 
-			if ($title) {
+            if ($title != '') {
 
-				if (!empty($id = $h1Element->getAttribute('id')))
-					$this->setTitleId($id);
+                if ($id = $titleNode->getAttribute('id'))
+                    $this->setTitleId($id);
 
-				return $title;
-			}
-		}
+                return $title;
+            }
+        }
 
-		// пытаемся извлечь заголовок из тега title
-		$title = $this->xpath()->query("//*[local-name()='title']");
+        // пытаемся извлечь заголовок из первого найденного класса у которого класс начинается на title
+        $classElements = $this->xpath()->query("//*[local-name()='body']//*[@class]");
 
-		if ($title->length) {
-			$title = $title->item(0)->nodeValue;
-			$title = $this->titleHandler($title);
-			if ($title != '') {
-				return $title;
-			}
-		}
+        foreach ($classElements as $classElement) {
 
-		$title = $this->dom()->documentElement->nodeValue;
+            if (preg_match("/^title(\_\-[0-9])*$/iu", $classElement->getAttribute("class"))) {
+                $title = strip_tags($this->dom()->saveHTML($classElement));
+                $title = $this->titleHandler($title);
 
-		$title = $this->titleHandler($title);
+                if ($title != '') {
 
-		if (mb_strlen($title) > 40)
-			$title = trim(mb_substr($title, 0, 30)) . '...';
+                    if ($id = $classElement->getAttribute('id'))
+                        $this->setTitleId($id);
 
-		if ($title != '') {
-			return $title;
-		}
+                    return $title;
+                }
+            }
+        }
 
-		// если совсем никак не извлечь title то используем название файла
+        // пытаемся извлечь заголовок из тега h1 в body
+        $h1Elements = $this->xpath()->query("//*[local-name()='body']//*[local-name()='h1']");
 
-		return $this->getBaseName();
-	}
+        if ($h1Elements->length) {
+            $h1Element = $h1Elements->item(0);
+            $title = $this->titleHandler($h1Element->nodeValue);
 
-	public function titleHandler($string): string
-	{
-		$string = (string)$string;
-		$string = html_entity_decode($string);
+            if ($title) {
 
-		mb_substitute_character(0x20);
-		$string = mb_convert_encoding($string, "UTF-8", "auto");
-		$string = mb_str_replace(chr(194) . chr(160), ' ', $string);
+                if (!empty($id = $h1Element->getAttribute('id')))
+                    $this->setTitleId($id);
 
-		$string = preg_replace("/[[:space:]]/iu", " ", $string);
-		$string = preg_replace("/([[:space:]]{2,})/iu", "  ", $string);
+                return $title;
+            }
+        }
+
+        // пытаемся извлечь заголовок из тега title
+        $title = $this->xpath()->query("//*[local-name()='title']");
+
+        if ($title->length) {
+            $title = $title->item(0)->nodeValue;
+            $title = $this->titleHandler($title);
+            if ($title != '') {
+                return $title;
+            }
+        }
+
+        $title = $this->dom()->documentElement->nodeValue;
+
+        $title = $this->titleHandler($title);
+
+        if (mb_strlen($title) > 40)
+            $title = trim(mb_substr($title, 0, 30)) . '...';
+
+        if ($title != '') {
+            return $title;
+        }
+
+        // если совсем никак не извлечь title то используем название файла
+
+        return $this->getBaseName();
+    }
+
+    public function titleHandler($string): string
+    {
+        $string = (string)$string;
+        $string = html_entity_decode($string);
+
+        mb_substitute_character(0x20);
+        $string = mb_convert_encoding($string, "UTF-8", "auto");
+        $string = mb_str_replace(chr(194) . chr(160), ' ', $string);
+
+        $string = preg_replace("/[[:space:]]/iu", " ", $string);
+        $string = preg_replace("/([[:space:]]{2,})/iu", "  ", $string);
         return trim($string);
-	}
+    }
 
-	public function xpath(): DOMXpath
+    public function xpath(): DOMXpath
     {
-		$this->xpath = new DOMXpath($this->dom());
-		return $this->xpath;
-	}
+        $this->xpath = new DOMXpath($this->dom());
+        return $this->xpath;
+    }
 
-	public function getBodyContent(): string
+    public function getBodyContent(): string
     {
-		$content = '';
+        $content = '';
 
-		foreach ($this->body()->childNodes as $childNode) {
-			$str = $this->dom()->saveXML($childNode);
-			$str = str_replace("&#13;", ' ', $str);
-			$content .= trim($str);
-		}
+        foreach ($this->body()->childNodes as $childNode) {
+            $str = $this->dom()->saveXML($childNode);
+            $str = str_replace("&#13;", ' ', $str);
+            $content .= trim($str);
+        }
 
-		return $this->newLinesAndSpacesToOneSpace($content);
-	}
+        return $this->newLinesAndSpacesToOneSpace($content);
+    }
 
-	public function newLinesAndSpacesToOneSpace($content): string
+    public function newLinesAndSpacesToOneSpace($content): string
     {
-		return trim(preg_replace("/[[:space:]]+/iu", " ", $content));
-	}
+        return trim(preg_replace("/[[:space:]]+/iu", " ", $content));
+    }
 
-	public function getParentNavPointSrc(): ?string
+    public function getParentNavPointSrc(): ?string
     {
-		$navPoint = $this->epub->ncx()->findNavPointByBaseName($this->getBaseName());
+        $navPoint = $this->epub->ncx()->findNavPointByBaseName($this->getBaseName());
 
-		if (empty($navPoint))
-			return null;
+        if (empty($navPoint))
+            return null;
 
-		$parentNavPoint = $navPoint->xpath("parent::*")[0]->xpath("parent::*")[0];
+        $parentNavPoint = $navPoint->xpath("parent::*")[0]->xpath("parent::*")[0];
 
-		if (!empty($parentNavPoint)) {
-			$content = @$parentNavPoint->xpath("*[local-name()='content']")[0];
+        if (!empty($parentNavPoint)) {
+            $content = @$parentNavPoint->xpath("*[local-name()='content']")[0];
 
-			if (!empty($content)) {
-				return @basename($content->attributes()->src);
-			}
-		}
+            if (!empty($content)) {
+                return @basename($content->attributes()->src);
+            }
+        }
         return null;
-	}
+    }
 
-	public function setBodyId($id)
-	{
-		$this->body()->setAttribute('id', $id);
-	}
-
-	public function getBodyId(): string
+    public function setBodyId($id)
     {
-		return $this->body()->getAttribute('id');
-	}
+        $this->body()->setAttribute('id', $id);
+    }
 
-	public function write()
-	{
-		$content = $this->dom->saveXml();
-
-		$this->setContent($content);
-	}
-
-	public function setContent($content)
-	{
-		parent::setContent($content);
-	}
-
-	public function getContent($formatOutput = true): string
+    public function getBodyId(): string
     {
-		$xml = $this->dom()->saveXml();
+        return $this->body()->getAttribute('id');
+    }
 
-		if ($formatOutput) {
-			$dom = new DOMDocument('1.0');
-			$dom->preserveWhiteSpace = false;
-			$dom->loadXML($xml);
-			$dom->formatOutput = true;
-
-			return $dom->saveXML();
-		} else {
-			return $xml;
-		}
-	}
-
-	public function prependBodyXhtml($xhtml): bool
+    public function write()
     {
-		$firstSibling = $this->body()->firstChild;
+        $content = $this->dom->saveXml();
 
-		$importedNodeList = $this->importXhtml($xhtml);
+        $this->setContent($content);
+    }
 
-		if ($importedNodeList->count())
+    public function setContent($content)
+    {
+        parent::setContent($content);
+    }
+
+    public function getContent($formatOutput = true): string
+    {
+        $xml = $this->dom()->saveXml();
+
+        if ($formatOutput) {
+            $dom = new DOMDocument('1.0');
+            $dom->preserveWhiteSpace = false;
+            $dom->loadXML($xml);
+            $dom->formatOutput = true;
+
+            return $dom->saveXML();
+        } else {
+            return $xml;
+        }
+    }
+
+    public function prependBodyXhtml($xhtml): bool
+    {
+        $firstSibling = $this->body()->firstChild;
+
+        $importedNodeList = $this->importXhtml($xhtml);
+
+        if ($importedNodeList->count())
             foreach ($importedNodeList as $node) {
                 $children[] = $node;
             }
-		else
+        else
             $children = [];
 
-		if (isset($children) and count($children))
-        {
+        if (isset($children) and count($children)) {
             if (empty($firstSibling)) {
                 foreach ($children as $node) {
                     $this->body()->appendChild($node);
@@ -415,26 +414,26 @@ class Section extends File
             }
         }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getLinear()
-	{
-		return $this->linear;
-	}
+    public function getLinear()
+    {
+        return $this->linear;
+    }
 
-	public function setLinear($linear)
-	{
-		$this->linear = $linear;
-	}
+    public function setLinear($linear)
+    {
+        $this->linear = $linear;
+    }
 
-	public function getTitleId()
-	{
-		return $this->title_id;
-	}
+    public function getTitleId()
+    {
+        return $this->title_id;
+    }
 
-	public function setTitleId($title_id)
-	{
-		$this->title_id = $title_id;
-	}
+    public function setTitleId($title_id)
+    {
+        $this->title_id = $title_id;
+    }
 }
