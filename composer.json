@@ -1,0 +1,40 @@
+{
+  "name": "litlife/epub",
+  "description": "Epub module",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Litlife",
+      "email": "litlife@yandex.ru"
+    }
+  ],
+  "require": {
+    "ext-zip": "*",
+    "ext-dom": "*",
+    "ext-imagick": "*",
+    "ext-mbstring": "*",
+    "ext-libxml": "*",
+    "php": "^8.0.2",
+    "nelexa/zip": "^4.0",
+    "litlife/url": "^0.0.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Litlife\\Epub\\": "src"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Litlife\\Epub\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
+}
